@@ -27,6 +27,7 @@ public class Chamado {
 	
 	//@ManyToOne
 	//@JoinColumn(name = "id_usuario")
+    
 	//private Usuario solicitante;
 
 }
