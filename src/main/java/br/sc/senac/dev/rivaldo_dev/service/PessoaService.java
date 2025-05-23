@@ -1,7 +1,5 @@
 package br.sc.senac.dev.rivaldo_dev.service;
 
-package br.sc.senac.dev.rivaldo_dev.service;
-
 import org.springframework.stereotype.Service;
 
 import br.sc.senac.dev.rivaldo_dev.exception.RivaldoException;
@@ -14,7 +12,7 @@ public class PessoaService {
 
 	private PessoaRepository pessoaRepository;
 	
-	public Pessoa inserir(Pessoa novaP) {
+	public Pessoa inserir(Pessoa novaP) throws RivaldoException {
 		validarCpfUsuarioNovo(novaP);
 		
 		
@@ -22,13 +20,13 @@ public class PessoaService {
 		return null;
 	}
  
-	private void validarCpfUsuarioNovo(Pessoa novaP) {
+	private void validarCpfUsuarioNovo(Pessoa novaP) throws RivaldoException{
 		
 		String cpfNovo = novaP.getCpf();
-		Pessoa cpfNovo = pessoaRepository.findByCpf(cpfNovo);
+		Pessoa cpfNovoPessoa = pessoaRepository.findByCpf(cpfNovo);
 		
-		if(cpfNovo != null) {
-			throw new RivaldoException("jรก existe o cpf");
+		if(cpfNovoPessoa != null) {
+		throw new RivaldoException("ja existe o cpf");
 		}
 		
 	}
