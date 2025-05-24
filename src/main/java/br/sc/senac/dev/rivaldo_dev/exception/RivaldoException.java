@@ -5,5 +5,6 @@ public class RivaldoException extends Exception {
 	public RivaldoException(String mensagem) {
 		super(mensagem);
 	}
+	
 
 }
