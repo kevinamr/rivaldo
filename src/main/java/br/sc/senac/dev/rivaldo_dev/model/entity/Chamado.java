@@ -1,7 +1,5 @@
 package br.sc.senac.dev.rivaldo_dev.model.entity;
 
-import org.antlr.v4.runtime.misc.NotNull;
-
 import br.sc.senac.dev.rivaldo_dev.enums.Categoria;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;

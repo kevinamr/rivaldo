@@ -4,6 +4,10 @@ public enum Categoria {
 	APLICATIVO,
 	PERIFERICO,
 	HARDWARE,
-	INTERNET
+	INTERNET;
+
+    public static Categoria fromInt(int code) {
+        return Categoria.values()[code];
+    }
 
 }
