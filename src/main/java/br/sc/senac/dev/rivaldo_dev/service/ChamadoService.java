@@ -44,5 +44,10 @@ public class ChamadoService {
         Categoria categoria = Categoria.fromInt(codigoCategoria);
         return categoria.name();
 	}
+
+	public void excluir(String id) {
+		
+		chamadoRepository.deleteById(id);
+	}
 	
 }

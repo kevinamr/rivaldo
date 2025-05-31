@@ -1,10 +1,13 @@
 package br.sc.senac.dev.rivaldo_dev.model.entity;
 
-import org.antlr.v4.runtime.misc.NotNull;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -15,16 +18,20 @@ public class Pessoa {
 	@Id
 	private Integer id;
 	
-	@NotNull
+	@NotBlank(message = "Nome é obrigatório")
+	@Size(min = 3, max = 255)
 	private String nome;
 	
-	@NotNull
+	@NotBlank(message = "Cpf é obrigatório")
+	@Size(min = 11, max = 11)
 	private String cpf;
 	
-	@NotNull
+	@NotBlank(message = "Email é obrigatório")
+	@Email(message = "Email precisa ser valido")
 	private String email;
 
-	@NotNull
+	@Column(length = 4000)
+	@NotBlank(message = "Senha é obrigatória")
 	private String senha;
 	
 }

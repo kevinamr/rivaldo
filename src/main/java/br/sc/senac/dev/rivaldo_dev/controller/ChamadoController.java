@@ -2,7 +2,10 @@ package br.sc.senac.dev.rivaldo_dev.controller;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,4 +50,13 @@ public class ChamadoController {
 		
 		return nemTodos;
 	}
+	
+	@Operation(summary = "Deletar chamados por id", 
+			   description = "Deleta chamados dado o seu id")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> excluir(@PathVariable String id) throws RivaldoException{
+		chamadoService.excluir(id);
+		return ResponseEntity.noContent().build();
+	}
 }
+
