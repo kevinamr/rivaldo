@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.sc.senac.dev.rivaldo_dev.exception.RivaldoException;
@@ -18,6 +20,7 @@ import io.swagger.v3.oas.annotations.Operation;
 
 
 @RestController
+@RequestMapping(path = "/api/pessoa")
 public class PessoaController {
 	
 	@Autowired
@@ -29,6 +32,14 @@ public class PessoaController {
 	public ResponseEntity<Pessoa> inserir(@RequestBody Pessoa novaP) throws RivaldoException{
 		return ResponseEntity.ok(pessoaService.inserir(novaP));
 	}
+	
+	@Operation(summary = "atualizar usuario", 
+			   description = "atualiza usuario ja existentes no banco")
+	@PutMapping
+	public Pessoa atualizar(@RequestBody Pessoa novo) throws RivaldoException {
+		return pessoaService.atualizar(novo);
+	}
+	
 	
 	@Operation(summary = "Pesquisar Todos os usuarios", 
 			   description = "Retorna uma lista de todos os Usuarios cadastrados.")

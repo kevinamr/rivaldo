@@ -41,4 +41,16 @@ public class PessoaService {
 		
 	}
 
+	public Pessoa atualizar(Pessoa pessoaAtualizado) throws RivaldoException {
+		
+		int idPessoaNova = pessoaAtualizado.getId();
+		Pessoa pessoaExistente = pessoaRepository.findById(idPessoaNova);
+
+		if(pessoaExistente == null || pessoaAtualizado.getId() == null) {
+			throw new RivaldoException("informe um id valido!");
+		}
+		
+		return pessoaRepository.save(pessoaAtualizado);
+	}
+
 }

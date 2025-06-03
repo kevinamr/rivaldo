@@ -27,7 +27,6 @@ public class Chamado {
 	
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa")
-    
 	private Pessoa solicitante;
 
 }

@@ -13,5 +13,8 @@ public interface PessoaRepository extends JpaRepository<Pessoa, String>, JpaSpec
 	
 	@Query("SELECT p FROM Pessoa p WHERE p.cpf = :cpfNovo")
 	Pessoa findByCpf(@Param("cpfNovo") String cpfNovo);
+
+	@Query("SELECT p FROM Pessoa p WHERE p.id = :idPessoaNova")
+	Pessoa findById(@Param("idPessoaNova") int idPessoaNova);
 	
 }

@@ -1,9 +1,15 @@
 package br.sc.senac.dev.rivaldo_dev.model.entity;
 
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -33,5 +39,9 @@ public class Pessoa {
 	@Column(length = 4000)
 	@NotBlank(message = "Senha é obrigatória")
 	private String senha;
+	
+	@JsonBackReference(value ="criadorDoPruu")
+	@OneToMany(mappedBy = "solicitante")
+	private List<Chamado> chamados;
 	
 }
