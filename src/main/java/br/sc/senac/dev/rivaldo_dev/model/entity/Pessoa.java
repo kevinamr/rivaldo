@@ -5,10 +5,12 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import br.sc.senac.dev.rivaldo_dev.enums.PerfilAcesso;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
@@ -44,4 +46,7 @@ public class Pessoa {
 	@OneToMany(mappedBy = "solicitante")
 	private List<Chamado> chamados;
 	
+	@Enumerated(EnumType.STRING)
+	private PerfilAcesso perfil;
+
 }

@@ -1,6 +1,8 @@
 package br.sc.senac.dev.rivaldo_dev.model.entity;
 
+
 import br.sc.senac.dev.rivaldo_dev.enums.Categoria;
+import br.sc.senac.dev.rivaldo_dev.enums.OsStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -28,5 +30,8 @@ public class Chamado {
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa")
 	private Pessoa solicitante;
-
+	
+	@Enumerated(EnumType.STRING)
+	private OsStatus status;
+	
 }
