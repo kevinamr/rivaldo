@@ -13,54 +13,44 @@ import br.sc.senac.dev.rivaldo_dev.model.repository.PessoaRepository;
 @Service
 public class PessoaService {
 
-	@Autowired
-	private PessoaRepository pessoaRepository;
-	
-	public Pessoa inserir(Pessoa novaP) throws RivaldoException {
-		validarIdUsuarioNovo(novaP);
-		validarCpfUsuarioNovo(novaP);
-		return pessoaRepository.save(novaP);
-	}
- 
-	private void validarIdUsuarioNovo(Pessoa novaP) throws RivaldoException {
-		Pessoa idNovoPessoa = pessoaRepository.findById(novaP.getId());
-		
-		if(idNovoPessoa != null) {
-			throw new RivaldoException("ja existe o id");
-		}
-		
-	}
+@Autowired
+private PessoaRepository pessoaRepository;
 
-	private void validarCpfUsuarioNovo(Pessoa novaP) throws RivaldoException{
-		
-		String cpfNovo = novaP.getCpf();
-		Pessoa cpfNovoPessoa = pessoaRepository.findByCpf(cpfNovo);
-		
-		if(cpfNovoPessoa != null) {
-	    	throw new RivaldoException("ja existe o cpf");
-		}
-		
-	}
+public Pessoa inserir(Pessoa novaP) throws RivaldoException {
+validarUsuarioNovo(novaP);
+return pessoaRepository.save(novaP);
+}
 
-	public List<Pessoa> pesquisarTodos() {
-		return pessoaRepository.findAll();
-	}
+private void validarUsuarioNovo(Pessoa novaP) throws RivaldoException{
 
-	public void excluir(String id) {
-		pessoaRepository.deleteById(id);
-		
-	}
+String cpfNovo = novaP.getCpf();
+Pessoa cpfNovoPessoa = pessoaRepository.findByCpf(cpfNovo);
 
-	public Pessoa atualizar(Pessoa pessoaAtualizado) throws RivaldoException {
-		
-		int idPessoaNova = pessoaAtualizado.getId();
-		Pessoa pessoaExistente = pessoaRepository.findById(idPessoaNova);
+if(cpfNovoPessoa != null) {
+    throw new RivaldoException("ja existe o cpf");
+}
 
-		if(pessoaExistente == null || pessoaAtualizado.getId() == null) {
-			throw new RivaldoException("informe um id valido!");
-		}
-		
-		return pessoaRepository.save(pessoaAtualizado);
-	}
+}
+
+public List<Pessoa> pesquisarTodos() {
+return pessoaRepository.findAll();
+}
+
+public void excluir(String id) {
+pessoaRepository.deleteById(id);
+
+}
+
+public Pessoa atualizar(Pessoa pessoaAtualizado) throws RivaldoException {
+
+int idPessoaNova = pessoaAtualizado.getId();
+Pessoa pessoaExistente = pessoaRepository.findById(idPessoaNova);
+
+if(pessoaExistente == null || pessoaAtualizado.getId() == null) {
+throw new RivaldoException("informe um id valido!");
+}
+
+return pessoaRepository.save(pessoaAtualizado);
+}
 
 }

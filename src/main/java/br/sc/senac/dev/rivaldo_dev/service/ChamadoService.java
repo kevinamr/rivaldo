@@ -17,14 +17,7 @@ public class ChamadoService {
 	@Autowired
 	private ChamadoRepository chamadoRepository;
 
-	public Chamado publicar(Chamado novoChamado) throws RivaldoException {
-		if(novoChamado.getDescricao() == null) {
-			throw new RivaldoException("Texto n informado");
-		}
-		if(novoChamado.getCategoria() == null) {
-			throw new RivaldoException("Usuario n categoria");
-		}
-		
+	public Chamado publicar(Chamado novoChamado) throws RivaldoException {		
 		return chamadoRepository.save(novoChamado);
 	}
 

@@ -3,6 +3,7 @@ package br.sc.senac.dev.rivaldo_dev.model.entity;
 
 import java.util.List;
 
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -26,32 +27,32 @@ import lombok.Data;
 @Data
 public class Pessoa {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	@NotBlank(message = "Nome é obrigatório")
-	@Size(min = 3, max = 255)
-	private String nome;
-	
-	@NotBlank(message = "Cpf é obrigatório")
-	@Size(min = 11, max = 11)
-	//@CPF(message = "Cpf é obrigatório")
-	private String cpf;
-	
-	@NotBlank(message = "Email é obrigatório")
-	@Email(message = "Email precisa ser valido")
-	private String email;
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Integer id;
 
-	@Column(length = 4000)
-	@NotBlank(message = "Senha é obrigatória")
-	private String senha;
-	
-	@JsonBackReference(value ="criadorDoPruu")
-	@OneToMany(mappedBy = "solicitante")
-	private List<Chamado> chamados;
-	
-	@Enumerated(EnumType.STRING)
-	private PerfilAcesso perfil;
+@NotBlank(message = "Nome é obrigatório")
+@Size(min = 3, max = 255)
+private String nome;
+
+@NotBlank(message = "Cpf é obrigatório")
+@Size(min = 11, max = 11)
+@CPF(message = "Cpf é obrigatório")
+private String cpf;
+
+@NotBlank(message = "Email é obrigatório")
+@Email(message = "Email precisa ser valido")
+private String email;
+
+@Column(length = 4000)
+@NotBlank(message = "Senha é obrigatória")
+private String senha;
+
+@JsonBackReference(value ="criadorDoPruu")
+@OneToMany(mappedBy = "solicitante")
+private List<Chamado> chamados;
+
+@Enumerated(EnumType.STRING)
+private PerfilAcesso perfil;
 
 }
