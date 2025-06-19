@@ -17,10 +17,20 @@ public class PessoaService {
 	private PessoaRepository pessoaRepository;
 	
 	public Pessoa inserir(Pessoa novaP) throws RivaldoException {
+		validarIdUsuarioNovo(novaP);
 		validarCpfUsuarioNovo(novaP);
 		return pessoaRepository.save(novaP);
 	}
  
+	private void validarIdUsuarioNovo(Pessoa novaP) throws RivaldoException {
+		Pessoa idNovoPessoa = pessoaRepository.findById(novaP.getId());
+		
+		if(idNovoPessoa != null) {
+			throw new RivaldoException("ja existe o id");
+		}
+		
+	}
+
 	private void validarCpfUsuarioNovo(Pessoa novaP) throws RivaldoException{
 		
 		String cpfNovo = novaP.getCpf();
