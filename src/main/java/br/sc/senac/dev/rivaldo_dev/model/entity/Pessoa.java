@@ -4,6 +4,8 @@ package br.sc.senac.dev.rivaldo_dev.model.entity;
 import java.util.List;
 
 import org.hibernate.validator.constraints.br.CPF;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -48,9 +50,9 @@ private String email;
 @NotBlank(message = "Senha é obrigatória")
 private String senha;
 
-@JsonBackReference(value ="criadorDoPruu")
+@JsonBackReference(value ="solicitante")
 @OneToMany(mappedBy = "solicitante")
-private List<Chamado> chamados;
+private List<Chamado> chamadosPostados;
 
 @Enumerated(EnumType.STRING)
 private PerfilAcesso perfil;

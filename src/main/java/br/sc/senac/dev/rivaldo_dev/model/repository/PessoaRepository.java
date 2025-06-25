@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import br.sc.senac.dev.rivaldo_dev.model.entity.Pessoa;
 
 @Repository
-public interface PessoaRepository extends JpaRepository<Pessoa, String>, JpaSpecificationExecutor<Pessoa> {
+public interface PessoaRepository extends JpaRepository<Pessoa, Integer>, JpaSpecificationExecutor<Pessoa> {
 	
 	@Query("SELECT p FROM Pessoa p WHERE p.cpf = :cpfNovo")
 	Pessoa findByCpf(@Param("cpfNovo") String cpfNovo);
@@ -17,4 +17,6 @@ public interface PessoaRepository extends JpaRepository<Pessoa, String>, JpaSpec
 	@Query("SELECT p FROM Pessoa p WHERE p.id = :idPessoaNova")
 	Pessoa findById(@Param("idPessoaNova") int idPessoaNova);
 	
+	@Query("SELECT p FROM Pessoa p WHERE p.email = :email")
+	Pessoa findByEmail(@Param("email") String email);
 }

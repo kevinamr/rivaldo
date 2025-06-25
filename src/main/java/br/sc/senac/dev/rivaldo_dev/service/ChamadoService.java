@@ -25,22 +25,22 @@ public class ChamadoService {
 		return chamadoRepository.findAll();
 	}
 
-	public List<Chamado> procurarPorCategoria(Integer codigoCategoria) {
+	public List<Chamado> procurarPorCategoria(Categoria categoriaSelecionada) {
 		
-		String categoria = processarCategoria(codigoCategoria);
-	    
-		
-		return chamadoRepository.findByCategoria(categoria);
+		return chamadoRepository.findByCategoria(categoriaSelecionada);
 	}
 	
-	private String processarCategoria(Integer codigoCategoria) {
-        Categoria categoria = Categoria.fromInt(codigoCategoria);
-        return categoria.name();
-	}
 
-	public void excluir(String id) {
+	public void excluir(Chamado chamadoid) {
+		
+		int id = chamadoid.getId();
 		
 		chamadoRepository.deleteById(id);
+	}
+
+	public List<Chamado> procurarEmAndamento(boolean stats) {
+		
+		return chamadoRepository.findByStats(stats);
 	}
 	
 }

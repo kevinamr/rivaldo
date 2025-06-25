@@ -1,6 +1,10 @@
 package br.sc.senac.dev.rivaldo_dev.model.entity;
 
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import br.sc.senac.dev.rivaldo_dev.enums.Categoria;
 import br.sc.senac.dev.rivaldo_dev.enums.OsStatus;
 import jakarta.persistence.Entity;
@@ -29,11 +33,9 @@ public class Chamado {
 	@Size(min = 3, max = 255)
 	private String descricao;
 	
-	@NotBlank(message = "É obrigatório selecionar uma categoria")
     @Enumerated(EnumType.STRING)
 	private Categoria categoria;
 	
-	@NotBlank(message = "erro, solicitante não identificada")
 	@ManyToOne
 	@JoinColumn(name = "id_pessoa")
 	private Pessoa solicitante;
@@ -43,4 +45,8 @@ public class Chamado {
 	
 	private boolean stats;
 	
+	@CreationTimestamp
+	private LocalDateTime dataCadastro;
+	
 }
+  

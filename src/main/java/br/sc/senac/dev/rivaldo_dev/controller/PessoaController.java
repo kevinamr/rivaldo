@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,36 +28,44 @@ public class PessoaController {
 private PessoaService pessoaService;
 
 
-@Operation(summary = "Registrar usuario", 
-   description = "Registra novos usuarios no banco")
-@PostMapping
-@ResponseStatus(code = HttpStatus.CREATED)
-public Pessoa inserir(@RequestBody Pessoa novaP) throws RivaldoException{
-return pessoaService.inserir(novaP);
-}
+	@Operation(summary = "Registrar usuario", 
+	   description = "Registra novos usuarios no banco")
+	@PostMapping
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public Pessoa inserir(@RequestBody Pessoa novaP) throws RivaldoException{
+	return pessoaService.inserir(novaP);
+	}
+	
+	@Operation(summary = "Logar usuario", 
+			   description = "Loga novos usuarios no banco")
+	@GetMapping("/{login}")
+	public Pessoa loginPessoa(@RequestBody Pessoa logandoPessoa) throws RivaldoException {
+		
+		return pessoaService.loginPessoa(logandoPessoa);
+	}
+	
+	@Operation(summary = "atualizar usuario", 
+	   description = "atualiza usuario ja existentes no banco")
+	@PutMapping
+	public Pessoa atualizar(@RequestBody Pessoa novaPessoa) throws RivaldoException {
+	return pessoaService.atualizar(novaPessoa);
+	}
+	
+	
+	@Operation(summary = "Pesquisar Todos os usuarios", 
+	   description = "Retorna uma lista de todos os Usuarios cadastrados.")
+	@GetMapping
+	private List<Pessoa> pesquisarTodos(){
+	List<Pessoa> tudo = pessoaService.pesquisarTodos();
+	return tudo;
+	};
 
-@Operation(summary = "atualizar usuario", 
-   description = "atualiza usuario ja existentes no banco")
-@PutMapping
-public Pessoa atualizar(@RequestBody Pessoa novaPessoa) throws RivaldoException {
-return pessoaService.atualizar(novaPessoa);
-}
-
-
-@Operation(summary = "Pesquisar Todos os usuarios", 
-   description = "Retorna uma lista de todos os Usuarios cadastrados.")
-@GetMapping
-private List<Pessoa> pesquisarTodos(){
-List<Pessoa> tudo = pessoaService.pesquisarTodos();
-return tudo;
-};
-
-@Operation(summary = "Deletar pessoas por id", 
-   description = "Deleta pessoas dado o seu id, desde q o usuario n tenha chamados em andamento")
-@DeleteMapping("/{id}")
-public ResponseEntity<Void> excluir(@PathVariable String id) throws RivaldoException{
-pessoaService.excluir(id);
-return ResponseEntity.noContent().build();
+	@Operation(summary = "Deletar pessoas por id", 
+			description = "Deleta pessoas dado o seu id, desde q o usuario n tenha chamados em andamento")
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> excluir(@RequestBody Pessoa pessoaid) throws RivaldoException{
+		pessoaService.excluirPessoa(pessoaid);
+		return ResponseEntity.noContent().build();
 }
 
 
