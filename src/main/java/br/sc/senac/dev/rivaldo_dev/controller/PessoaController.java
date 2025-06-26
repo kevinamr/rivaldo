@@ -29,7 +29,7 @@ private PessoaService pessoaService;
 
 
 	@Operation(summary = "Registrar usuario", 
-	   description = "Registra novos usuarios no banco")
+	   description = "Registra novos usuarios no banco") 
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Pessoa inserir(@RequestBody Pessoa novaP) throws RivaldoException{
