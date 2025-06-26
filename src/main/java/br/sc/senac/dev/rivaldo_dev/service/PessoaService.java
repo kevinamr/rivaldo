@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import br.sc.senac.dev.rivaldo_dev.enums.PeStatus;
 import br.sc.senac.dev.rivaldo_dev.enums.PerfilAcesso;
 import br.sc.senac.dev.rivaldo_dev.exception.RivaldoException;
 import br.sc.senac.dev.rivaldo_dev.model.entity.Pessoa;
@@ -31,6 +32,9 @@ String senhaHash = DarHashNaSenha(novaP.getSenha());
 novaP.setSenha(senhaHash);
 if(novaP.getPerfil() == null) {
 	novaP.setPerfil(PerfilAcesso.USUARIO);
+}
+if(novaP.getStatus() == null) {
+	novaP.setStatus(PeStatus.ATIVADO);
 }
 return pessoaRepository.save(novaP);
 }
@@ -93,6 +97,7 @@ return pessoaRepository.save(pessoaAtualizado);
 }
 
 public Pessoa loginPessoa(Pessoa logandoPessoa) throws RivaldoException {
+	
     if(logandoPessoa.getEmail() == null) {
         throw new RivaldoException("email n informado");
     }
@@ -108,6 +113,10 @@ public Pessoa loginPessoa(Pessoa logandoPessoa) throws RivaldoException {
     }
 
     String senhaHash = DarHashNaSenha(logandoPessoa.getSenha());
+    
+    if(!pessoaLogado.getStatus().equals("DESATIVADO")) {
+    	throw new RivaldoException("usuario desativado");
+    }
     
     if(!senhaHash.equals(pessoaLogado.getSenha())) {
         throw new RivaldoException("senha incorreta");

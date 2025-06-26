@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import br.sc.senac.dev.rivaldo_dev.enums.PeStatus;
 import br.sc.senac.dev.rivaldo_dev.enums.PerfilAcesso;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -56,5 +57,8 @@ private List<Chamado> chamadosPostados;
 
 @Enumerated(EnumType.STRING)
 private PerfilAcesso perfil;
+
+@Enumerated(EnumType.STRING)
+private PeStatus status;
 
 }
