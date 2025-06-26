@@ -67,5 +67,10 @@ private PessoaService pessoaService;
 		return ResponseEntity.noContent().build();
 }
 
-
+	@Operation(summary = "Atualizar Status", 
+			   description = "Atualiza os status de um usuario")
+	@PostMapping(path = "/atualizar/status")
+	public ResponseEntity<Object> atualizarStatus(@RequestBody Pessoa statusPessoa) throws RivaldoException{
+		return ResponseEntity.ok(pessoaService.atualizarStatus(statusPessoa));
+	}
 }

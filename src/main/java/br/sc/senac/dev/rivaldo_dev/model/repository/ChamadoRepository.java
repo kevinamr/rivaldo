@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import br.sc.senac.dev.rivaldo_dev.enums.Categoria;
 import br.sc.senac.dev.rivaldo_dev.model.entity.Chamado;
+import br.sc.senac.dev.rivaldo_dev.model.entity.Pessoa;
 
 @Repository
 public interface ChamadoRepository extends JpaRepository<Chamado, Integer>, JpaSpecificationExecutor<Chamado> {
@@ -21,6 +22,9 @@ public interface ChamadoRepository extends JpaRepository<Chamado, Integer>, JpaS
 	long countByIdUsuario(@Param("idUsuario") Integer idUsuario);
 
     @Query("SELECT ch FROM Chamado ch WHERE ch.stats = :stats")
-	List<Chamado> findByStats(@Param("stats") boolean stats);
+	List<Chamado> findByStats(@Param("stats") boolean stats); 
+    
+	@Query("SELECT ch FROM Chamado ch WHERE ch.id = :idChamadoSt")
+	Chamado findById(@Param("idChamadoSt") int idChamadoSt);
 	
 }

@@ -68,4 +68,11 @@ private List<Chamado> procurarEmAndamento(@RequestAttribute boolean stats){
 return chamadoService.procurarEmAndamento(stats);
 }
 
+@Operation(summary = "Atualizar Status", 
+description = "Atualiza os status de um chamado")
+@PostMapping(path = "/atualizar/status")
+public ResponseEntity<Object> atualizarStatus(@RequestBody Chamado statusChamado) throws RivaldoException{
+	return ResponseEntity.ok(chamadoService.atualizarStatus(statusChamado));
+}
+
 }

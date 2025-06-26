@@ -125,4 +125,29 @@ public Pessoa loginPessoa(Pessoa logandoPessoa) throws RivaldoException {
     return pessoaLogado;
 }
 
+public Object atualizarStatus(Pessoa statusPessoa) throws RivaldoException {
+	
+    if(statusPessoa.getId() == null) {
+        throw new RivaldoException("id n informado");
+    }
+    
+    int idPessoaSt = statusPessoa.getId();
+    
+    Pessoa pessoaLogado = pessoaRepository.findById(idPessoaSt);
+    
+    if(pessoaLogado == null) {
+    	throw new RivaldoException("pessoa n encontrada");
+    }
+    
+    if(pessoaLogado.getStatus() == PeStatus.ATIVADO) {
+        pessoaLogado.setStatus(PeStatus.DESATIVADO);
+    } else {
+        pessoaLogado.setStatus(PeStatus.ATIVADO);
+    }
+    
+    pessoaRepository.save(pessoaLogado);
+	
+	return pessoaLogado;
+}
+
 }
