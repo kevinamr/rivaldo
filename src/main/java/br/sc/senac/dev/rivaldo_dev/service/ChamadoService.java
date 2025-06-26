@@ -21,7 +21,8 @@ public class ChamadoService {
 	@Autowired
 	private ChamadoRepository chamadoRepository;
 
-	public Chamado publicar(Chamado novoChamado) throws RivaldoException {		
+	public Chamado publicar(Chamado novoChamado) throws RivaldoException {
+		novoChamado.setStatus(OsStatus.ANDAMENTO);
 		return chamadoRepository.save(novoChamado);
 	}
 
