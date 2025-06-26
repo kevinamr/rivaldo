@@ -114,7 +114,7 @@ public Pessoa loginPessoa(Pessoa logandoPessoa) throws RivaldoException {
 
     String senhaHash = DarHashNaSenha(logandoPessoa.getSenha());
     
-    if(!pessoaLogado.getStatus().equals("DESATIVADO")) {
+    if(pessoaLogado.getStatus() == PeStatus.DESATIVADO) {
     	throw new RivaldoException("usuario desativado");
     }
     
