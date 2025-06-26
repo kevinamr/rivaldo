@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.sc.senac.dev.rivaldo_dev.enums.PerfilAcesso;
@@ -96,7 +97,7 @@ public Pessoa loginPessoa(Pessoa logandoPessoa) throws RivaldoException {
 		throw new RivaldoException("email n informado");
 	};
 	if(logandoPessoa.getSenha() == null) {
-		throw new RivaldoException("email n informado");
+		throw new RivaldoException("senha n informado");
 	};
 	
 	String senhaHash = DarHashNaSenha(logandoPessoa.getSenha());
@@ -105,11 +106,11 @@ public Pessoa loginPessoa(Pessoa logandoPessoa) throws RivaldoException {
 	
 	Pessoa pessoaLogado = pessoaRepository.findByEmail(logandoPessoa.getEmail());
 	
-	if(logandoPessoa.getSenha() != pessoaLogado.getSenha()) {
+	if(!logandoPessoa.getSenha().equals(pessoaLogado.getSenha())) {
 		throw new RivaldoException("senha incorreta");
-	};
-	
+	}
 	return pessoaLogado;
+	
 }
 
 }

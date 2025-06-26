@@ -37,11 +37,10 @@ private PessoaService pessoaService;
 	}
 	
 	@Operation(summary = "Logar usuario", 
-			   description = "Loga novos usuarios no banco")
-	@GetMapping("/{login}")
-	public Pessoa loginPessoa(@RequestBody Pessoa logandoPessoa) throws RivaldoException {
-		
-		return pessoaService.loginPessoa(logandoPessoa);
+			   description = "Loga usuarios no banco")
+	@PostMapping(path = "/login")
+	public ResponseEntity<Pessoa> loginPessoa(@RequestBody Pessoa logandoPessoa) throws RivaldoException {
+		return ResponseEntity.ok(pessoaService.loginPessoa(logandoPessoa));
 	}
 	
 	@Operation(summary = "atualizar usuario", 
