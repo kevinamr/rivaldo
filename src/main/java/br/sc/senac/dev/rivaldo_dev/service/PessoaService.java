@@ -93,24 +93,27 @@ return pessoaRepository.save(pessoaAtualizado);
 }
 
 public Pessoa loginPessoa(Pessoa logandoPessoa) throws RivaldoException {
-	if(logandoPessoa.getEmail() == null) {
-		throw new RivaldoException("email n informado");
-	};
-	if(logandoPessoa.getSenha() == null) {
-		throw new RivaldoException("senha n informado");
-	};
-	
-	String senhaHash = DarHashNaSenha(logandoPessoa.getSenha());
-	
-	logandoPessoa.setSenha(senhaHash);
-	
-	Pessoa pessoaLogado = pessoaRepository.findByEmail(logandoPessoa.getEmail());
-	
-	if(!logandoPessoa.getSenha().equals(pessoaLogado.getSenha())) {
-		throw new RivaldoException("senha incorreta");
-	}
-	return pessoaLogado;
-	
+    if(logandoPessoa.getEmail() == null) {
+        throw new RivaldoException("email n informado");
+    }
+    if(logandoPessoa.getSenha() == null) {
+        throw new RivaldoException("senha n informado");
+    }
+
+    Pessoa pessoaLogado = pessoaRepository.findByEmail(logandoPessoa.getEmail());
+    
+   
+    if(pessoaLogado == null) {
+        throw new RivaldoException("Email não encontrado");
+    }
+
+    String senhaHash = DarHashNaSenha(logandoPessoa.getSenha());
+    
+    if(!senhaHash.equals(pessoaLogado.getSenha())) {
+        throw new RivaldoException("senha incorreta");
+    }
+    
+    return pessoaLogado;
 }
 
 }
