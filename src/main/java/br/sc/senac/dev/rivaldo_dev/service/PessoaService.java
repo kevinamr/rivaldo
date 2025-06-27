@@ -27,15 +27,11 @@ private PessoaRepository pessoaRepository;
 private ChamadoRepository chamadoRepository;
 
 public Pessoa inserir(Pessoa novaP) throws RivaldoException {
-validarUsuarioNovo(novaP);
-String senhaHash = DarHashNaSenha(novaP.getSenha());
-novaP.setSenha(senhaHash);
-if(novaP.getPerfil() == null) {
-	novaP.setPerfil(PerfilAcesso.USUARIO);
-}
-if(novaP.getStatus() == null) {
+	validarUsuarioNovo(novaP);
+	String senhaHash = DarHashNaSenha(novaP.getSenha());
+	novaP.setSenha(senhaHash);
 	novaP.setStatus(PeStatus.ATIVADO);
-}
+	
 return pessoaRepository.save(novaP);
 }
 

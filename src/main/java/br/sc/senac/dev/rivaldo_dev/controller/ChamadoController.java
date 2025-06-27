@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.sc.senac.dev.rivaldo_dev.enums.Categoria;
@@ -19,7 +18,6 @@ import br.sc.senac.dev.rivaldo_dev.exception.RivaldoException;
 import br.sc.senac.dev.rivaldo_dev.model.entity.Chamado;
 import br.sc.senac.dev.rivaldo_dev.service.ChamadoService;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.websocket.server.PathParam;
 
 
 @RestController
