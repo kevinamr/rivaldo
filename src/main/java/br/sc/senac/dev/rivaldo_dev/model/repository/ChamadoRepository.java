@@ -15,6 +15,9 @@ import br.sc.senac.dev.rivaldo_dev.model.entity.Pessoa;
 @Repository
 public interface ChamadoRepository extends JpaRepository<Chamado, Integer>, JpaSpecificationExecutor<Chamado> {
 
+    @Query("SELECT ch FROM Chamado ch WHERE ch.status = 'ANDAMENTO'")
+	List<Chamado> findByStatus(); 
+
 	@Query("SELECT ch FROM Chamado ch WHERE ch.categoria = :categoriaSelecionada")
 	List<Chamado> findByCategoria(@Param("categoriaSelecionada")Categoria categoriaSelecionada);
 	

@@ -26,8 +26,8 @@ public class ChamadoService {
 		return chamadoRepository.save(novoChamado);
 	}
 
-	public List<Chamado> procurarTodos() {
-		return chamadoRepository.findAll();
+	public List<Chamado> procurarChamadosEmAndamento() {
+		return chamadoRepository.findByStatus();
 	}
 
 	public List<Chamado> procurarPorCategoria(Categoria categoriaSelecionada) {

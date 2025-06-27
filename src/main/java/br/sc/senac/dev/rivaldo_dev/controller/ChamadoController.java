@@ -39,9 +39,8 @@ return chamadoService.publicar(novoChamado);
 @Operation(summary = "Pesquisar todos os Chamados", 
    description = "Busca todos os chamados disponiveis")
 @GetMapping
-private List<Chamado> procurarTodos(){
-List<Chamado> tudo = chamadoService.procurarTodos();
-
+private List<Chamado> procurarChamadosEmAndamento(){
+List<Chamado> tudo = chamadoService.procurarChamadosEmAndamento();
 return tudo;
 }
 
