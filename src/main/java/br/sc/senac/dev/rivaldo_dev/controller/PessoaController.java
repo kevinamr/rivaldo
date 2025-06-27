@@ -47,7 +47,8 @@ private PessoaService pessoaService;
 	   description = "atualiza usuario ja existentes no banco")
 	@PutMapping
 	public Pessoa atualizar(@RequestBody Pessoa novaPessoa) throws RivaldoException {
-	return pessoaService.atualizar(novaPessoa);
+		Pessoa pessoaAtualizada = pessoaService.atualizar(novaPessoa);
+	return pessoaService.atualizar(pessoaAtualizada);
 	}
 	
 	

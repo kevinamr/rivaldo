@@ -85,11 +85,40 @@ public Pessoa atualizar(Pessoa pessoaAtualizado) throws RivaldoException {
 int idPessoaNova = pessoaAtualizado.getId();
 Pessoa pessoaExistente = pessoaRepository.findById(idPessoaNova);
 
-if(pessoaExistente == null || pessoaAtualizado.getId() == null) {
+if(pessoaExistente == null) {
 throw new RivaldoException("informe um id valido!");
 }
 
-return pessoaRepository.save(pessoaAtualizado);
+if(pessoaAtualizado.getNome() != null) {
+	pessoaExistente.setNome(pessoaAtualizado.getNome());
+}
+
+if(pessoaAtualizado.getEmail() != null) {
+	pessoaExistente.setEmail(pessoaAtualizado.getEmail());
+}
+
+if(pessoaAtualizado.getPerfil() != null) {
+	pessoaExistente.setPerfil(pessoaAtualizado.getPerfil());
+}
+
+if(pessoaAtualizado.getSenha() != null) {
+    String senhaNova = pessoaAtualizado.getSenha();
+    
+    // Verifica se já está hasheada (SHA-256 = 64 caracteres hex)
+    if (senhaNova.length() != 64 || !senhaNova.matches("[0-9a-f]+")) {
+        // Só faz hash se NÃO estiver hasheada
+        String senhaHash = DarHashNaSenha(senhaNova);
+        pessoaExistente.setSenha(senhaHash);
+    } else {
+        // Já está hasheada, usa direto
+        pessoaExistente.setSenha(senhaNova);
+    }
+}
+
+
+pessoaRepository.save(pessoaExistente);
+
+return pessoaExistente;
 }
 
 public Pessoa loginPessoa(Pessoa logandoPessoa) throws RivaldoException {
