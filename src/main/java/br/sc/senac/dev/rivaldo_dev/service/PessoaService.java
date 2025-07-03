@@ -12,9 +12,11 @@ import org.springframework.stereotype.Service;
 import br.sc.senac.dev.rivaldo_dev.enums.PeStatus;
 import br.sc.senac.dev.rivaldo_dev.enums.PerfilAcesso;
 import br.sc.senac.dev.rivaldo_dev.exception.RivaldoException;
+import br.sc.senac.dev.rivaldo_dev.model.dto.PessoaDTO;
 import br.sc.senac.dev.rivaldo_dev.model.entity.Pessoa;
 import br.sc.senac.dev.rivaldo_dev.model.repository.ChamadoRepository;
 import br.sc.senac.dev.rivaldo_dev.model.repository.PessoaRepository;
+import jakarta.validation.Valid;
 
 
 @Service
@@ -173,6 +175,25 @@ public Object atualizarStatus(Pessoa statusPessoa) throws RivaldoException {
     pessoaRepository.save(pessoaLogado);
 	
 	return pessoaLogado;
+}
+
+public Pessoa registrar(PessoaDTO pessoaDTO) throws RivaldoException {
+    // Converter DTO para Entity
+    Pessoa pessoa = new Pessoa();
+    pessoa.setNome(pessoaDTO.getNome());
+    pessoa.setCpf(pessoaDTO.getCpf());
+    pessoa.setEmail(pessoaDTO.getEmail());
+    
+    pessoa.setPerfil(PerfilAcesso.USUARIO);
+    pessoa.setStatus(PeStatus.ATIVADO);
+    
+    // Hash da senha APÓS validação
+    String senhaHash = DarHashNaSenha(pessoaDTO.getSenha());
+    pessoa.setSenha(senhaHash);
+    
+    validarUsuarioNovo(pessoa);
+    
+    return pessoaRepository.save(pessoa);
 }
 
 }

@@ -22,6 +22,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -50,6 +51,7 @@ private String email;
 @Column(length = 4000)
 @NotBlank(message = "Senha é obrigatória")
 private String senha;
+
 
 @JsonBackReference(value ="solicitante")
 @OneToMany(mappedBy = "solicitante")

@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.sc.senac.dev.rivaldo_dev.exception.RivaldoException;
+import br.sc.senac.dev.rivaldo_dev.model.dto.PessoaDTO;
 import br.sc.senac.dev.rivaldo_dev.model.entity.Pessoa;
 import br.sc.senac.dev.rivaldo_dev.service.PessoaService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -28,13 +30,20 @@ public class PessoaController {
 private PessoaService pessoaService;
 
 
-	@Operation(summary = "Registrar usuario", 
-	   description = "Registra novos usuarios no banco")
+	@Operation(summary = "Inserir usuario", 
+	   description = "força o banco a registrar um usuario sem regras de negocio")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Pessoa inserir(@RequestBody Pessoa novaP) throws RivaldoException{
 	return pessoaService.inserir(novaP);
 	}
+	
+	@Operation(summary = "Registrar usuario", 
+			   description = "Registra novos usuarios no banco")
+    @PostMapping("/registrar")
+    public ResponseEntity<Pessoa> registrar(@Valid @RequestBody PessoaDTO pessoaDTO) throws RivaldoException {
+        return ResponseEntity.ok(pessoaService.registrar(pessoaDTO));
+    }
 	
 	@Operation(summary = "Logar usuario", 
 			   description = "Loga usuarios no banco")

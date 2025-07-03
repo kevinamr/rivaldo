@@ -17,15 +17,10 @@ public interface ChamadoRepository extends JpaRepository<Chamado, Integer>, JpaS
 
     @Query("SELECT ch FROM Chamado ch WHERE ch.status = 'ANDAMENTO'")
 	List<Chamado> findByStatus(); 
-
-	@Query("SELECT ch FROM Chamado ch WHERE ch.categoria = :categoriaSelecionada")
-	List<Chamado> findByCategoria(@Param("categoriaSelecionada")Categoria categoriaSelecionada);
 	
     @Query("SELECT COUNT(ch) FROM Chamado ch WHERE ch.solicitante.id = :idUsuario")
 	long countByIdUsuario(@Param("idUsuario") Integer idUsuario);
 
-    @Query("SELECT ch FROM Chamado ch WHERE ch.stats = :stats")
-	List<Chamado> findByStats(@Param("stats") boolean stats); 
     
 	@Query("SELECT ch FROM Chamado ch WHERE ch.id = :idChamadoSt")
 	Chamado findById(@Param("idChamadoSt") int idChamadoSt);

@@ -43,8 +43,6 @@ public class Chamado {
 	@Enumerated(EnumType.STRING)
 	private OsStatus status;
 	
-	private boolean stats;
-	
 	@CreationTimestamp
 	private LocalDateTime dataCadastro;
 	
