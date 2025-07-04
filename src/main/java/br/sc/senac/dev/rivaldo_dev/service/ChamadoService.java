@@ -33,13 +33,17 @@ public class ChamadoService {
 		//String emailUsado = emailUsuario.getEmail();
 		Pessoa usuarioLogado = pessoaRepository.findByEmail(email);
 		
+		if (usuarioLogado == null) {
+		    throw new RuntimeException("Usuário não encontrado para o e-mail: " + email);
+		}
+		
 		List<Chamado> chamadosAchados = null;
 		
 		if(usuarioLogado.getPerfil().equals(PerfilAcesso.ADMINISTRADOR)) {
 			chamadosAchados = chamadoRepository.findByStatus();
 		} else {
 			Integer idLogado = usuarioLogado.getId();
-			chamadosAchados = chamadoRepository.findByStatusId(idLogado);
+			chamadosAchados = chamadoRepository.findByStatusAndSolicitanteEmail(email);
 		}
 		return chamadosAchados;
 	}
