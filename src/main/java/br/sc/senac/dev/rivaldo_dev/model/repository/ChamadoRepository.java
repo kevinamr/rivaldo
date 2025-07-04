@@ -24,5 +24,8 @@ public interface ChamadoRepository extends JpaRepository<Chamado, Integer>, JpaS
     
 	@Query("SELECT ch FROM Chamado ch WHERE ch.id = :idChamadoSt")
 	Chamado findById(@Param("idChamadoSt") int idChamadoSt);
+
+	@Query("SELECT ch FROM Chamado ch WHERE ch.status IN ('ANDAMENTO', 'TRIAGEM') AND ch.solicitante.id = :idUsuario")
+	List<Chamado> findByStatusId(@Param("idUsuarioL") Integer idUsuarioL);
 	
 }

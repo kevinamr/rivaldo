@@ -6,9 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.sc.senac.dev.rivaldo_dev.enums.OsStatus;
+import br.sc.senac.dev.rivaldo_dev.enums.PerfilAcesso;
 import br.sc.senac.dev.rivaldo_dev.exception.RivaldoException;
+import br.sc.senac.dev.rivaldo_dev.model.dto.PessoaDTO;
 import br.sc.senac.dev.rivaldo_dev.model.entity.Chamado;
+import br.sc.senac.dev.rivaldo_dev.model.entity.Pessoa;
 import br.sc.senac.dev.rivaldo_dev.model.repository.ChamadoRepository;
+import br.sc.senac.dev.rivaldo_dev.model.repository.PessoaRepository;
 
 
 @Service
@@ -16,14 +20,28 @@ public class ChamadoService {
 	
 	@Autowired
 	private ChamadoRepository chamadoRepository;
+	
+	@Autowired
+	private PessoaRepository pessoaRepository;
 
 	public Chamado publicar(Chamado novoChamado) throws RivaldoException {
 		novoChamado.setStatus(OsStatus.TRIAGEM);
 		return chamadoRepository.save(novoChamado);
 	}
 
-	public List<Chamado> procurarChamadosEmAndamento() {
-		return chamadoRepository.findByStatus();
+	public List<Chamado> procurarChamadosEmAndamento(String email) {
+		//String emailUsado = emailUsuario.getEmail();
+		Pessoa usuarioLogado = pessoaRepository.findByEmail(email);
+		
+		List<Chamado> chamadosAchados = null;
+		
+		if(usuarioLogado.getPerfil().equals(PerfilAcesso.ADMINISTRADOR)) {
+			chamadosAchados = chamadoRepository.findByStatus();
+		} else {
+			Integer idLogado = usuarioLogado.getId();
+			chamadosAchados = chamadoRepository.findByStatusId(idLogado);
+		}
+		return chamadosAchados;
 	}
 
 	public void excluir(Chamado chamadoid) {

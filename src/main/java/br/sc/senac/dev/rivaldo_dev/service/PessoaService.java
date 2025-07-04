@@ -60,7 +60,13 @@ String cpfNovo = novaP.getCpf();
 Pessoa cpfNovoPessoa = pessoaRepository.findByCpf(cpfNovo);
 
 if(cpfNovoPessoa != null) {
-    throw new RivaldoException("ja existe o cpf");
+    throw new RivaldoException("cpf ja existente");
+}
+String emailNovo = novaP.getEmail();
+Pessoa emailNovoPessoa = pessoaRepository.findByEmail(emailNovo);
+
+if(emailNovoPessoa != null) {
+    throw new RivaldoException("email ja existente");
 }
 
 }

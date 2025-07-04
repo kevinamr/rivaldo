@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.sc.senac.dev.rivaldo_dev.exception.RivaldoException;
+import br.sc.senac.dev.rivaldo_dev.model.dto.PessoaDTO;
 import br.sc.senac.dev.rivaldo_dev.model.entity.Chamado;
 import br.sc.senac.dev.rivaldo_dev.service.ChamadoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,8 +36,8 @@ return chamadoService.publicar(novoChamado);
 @Operation(summary = "Pesquisar todos os Chamados", 
    description = "Busca todos os chamados disponiveis")
 @GetMapping
-private List<Chamado> procurarChamadosEmAndamento(){
-List<Chamado> tudo = chamadoService.procurarChamadosEmAndamento();
+private List<Chamado> procurarChamadosEmAndamento(@RequestParam("email") String email){
+List<Chamado> tudo = chamadoService.procurarChamadosEmAndamento(email);
 return tudo;
 }
 
